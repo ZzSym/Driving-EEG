@@ -3,7 +3,7 @@ This is a tutorial on continuous EEG of driving tasks, including preprocessing, 
 
 # Todo list
 1. - [x] preproceesing
-2. - [] data alignment
+2. - [x] data alignment
 3. - [] logistic regression
 4. - [] LDA
 5. - [] SVM
