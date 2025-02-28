@@ -9,13 +9,16 @@ from tqdm import tqdm
 from omegaconf import DictConfig
 from scipy.signal import decimate
 
-def load_npz_files(npz_dir):
-    """Load the data from the .npz files in the output directory.
+def load_npz_files(npz_dir: str) -> tuple[list, list, list]:
+    """
+    Load the data from the .npz files in the output directory.
 
     Args:
+    ----
         output_dir (str): The directory containing the .npz files.
 
     Returns:
+    -------
         data_list (list): A list of data arrays from the .npz files.
         times_list (list): A list of time arrays from the .npz files.
         sfreq_list (list): A list of sampling frequencies from the .npz files.
@@ -37,7 +40,8 @@ def load_npz_files(npz_dir):
     return data_list, times_list, sfreq_list
 
 def load_log_file(file_path: str) -> dict:
-    """Load log file.
+    """
+    Load log file.
 
     Args:
     ----
@@ -45,7 +49,7 @@ def load_log_file(file_path: str) -> dict:
 
     Returns:
     -------
-        dict: Dict of log data, including timepoint, throttle, brake, steering,
+        log_dict: Dict of log data, including timepoint, throttle, brake, steering,
             angular_velocity, location, velocity, and acceleration.
 
     """
@@ -81,7 +85,8 @@ def load_log_file(file_path: str) -> dict:
     return log_dict
 
 def get_ch_names(file_path: str) -> list:
-    """Get channel names.
+    """
+    Get channel names.
 
     Args:
     ----
@@ -89,7 +94,7 @@ def get_ch_names(file_path: str) -> list:
 
     Returns:
     -------
-        list: List of channel names.
+        list (List): List of channel names.
 
     """
     ch_names = []
@@ -98,7 +103,8 @@ def get_ch_names(file_path: str) -> list:
     return ch_names
 
 def get_ms(time_0: str, time_1: str) -> int:
-    """Get time difference in milliseconds.
+    """
+    Get time difference in milliseconds.
 
     Args:
     ----
@@ -115,7 +121,8 @@ def get_ms(time_0: str, time_1: str) -> int:
     return int((datetime_1 - datetime_0).total_seconds() * 1000)
 
 def align_data(log_dict: dict, data: np.ndarray, cfg: DictConfig) -> dict:
-    """Align and preprocess eeg data.
+    """
+    Align and preprocess eeg data.
 
     Args:
     ----

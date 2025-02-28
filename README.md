@@ -5,7 +5,7 @@ This is a tutorial on continuous EEG of driving tasks, including preprocessing, 
 1. - [x] preproceesing
 2. - [x] data alignment
 3. - [] logistic regression
-4. - [] LDA
+4. - [x] LDA
 5. - [] SVM
 6. - [] kNN
 7. - [] MLP
