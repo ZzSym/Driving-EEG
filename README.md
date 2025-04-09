@@ -1,29 +1,35 @@
 # Driving-EEG
+
 This is a tutorial on continuous EEG of driving tasks, including preprocessing, ML analysis and DL modeling.
 
 ---
 
-# Todo list
+## Todo list
 
-*Data Preprocessing*
+### *Data Preprocessing*
+
 - [x] EEG preproceesing
 - [x] data alignment
 
-*Classical Machine Learning*
+### *Classical Machine Learning*
+
 - [x] LDA
 - [x] logistic regression
-- [] SVM
+- [x] SVM
 
-*Neural Networks*
+### *Neural Networks*
+
 - [] CNN
 - [] RNN
 - [] LSTM
 - [] MLP
 - [] Transformer
 
-*Foundation Models*
+### *Foundation Models*
+
 - [] LaBraM
 - [] EEGPT
 
-*Others*
-- [] contrastive learning
+### *Others*
+
+- [] Contrastive Learning
