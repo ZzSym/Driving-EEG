@@ -128,3 +128,15 @@ def make_multi_label(input: np.ndarray, split_list: list) -> np.ndarray:
     for i in range(len(split_list) - 1):
         label[(input >= split_list[i]) & (input < split_list[i + 1])] = i
     return label
+
+def load_data_model(npz_dir: str) -> list[dict[str, np.ndarray]]:
+    """
+    Load data for modeling from npz files.
+
+    Returns:
+    -------
+        data_list (List[Dict[str, np.ndarray]]): List of dictionaries containing the train and test data from the npz files
+    """
+    data_list = np.load(npz_dir, allow_pickle=True)
+    data_list = {key: value for key, value in data_list.items()}
+    return data_list
