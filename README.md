@@ -23,11 +23,11 @@ Please note that if you want to analyze the model, methods such as k-fold cross-
 
 ### *Neural Networks*
 
-- [] CNN
-- [] RNN
-- [] LSTM
-- [] MLP
-- [] Transformer
+- [x] CNN
+- [x] RNN
+- [x] LSTM
+- [x] MLP
+- [x] Transformer
 
 ### *Foundation Models*
 
