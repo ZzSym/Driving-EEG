@@ -27,13 +27,10 @@ Please note that if you want to analyze the model, methods such as k-fold cross-
 - [x] CNN
 - [x] RNN
 - [x] LSTM
-- [x] Transformer
 
 ### *Foundation Models*
 
+- [x] Transformer
 - [] LaBraM
 - [] EEGPT
-
-### *Others*
-
-- [] Contrastive Learning
+- [] Contrastive Learning(CLIP)

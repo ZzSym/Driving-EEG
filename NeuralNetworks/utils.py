@@ -2,6 +2,9 @@ import os
 import time
 import numpy as np
 import pandas as pd
+
+import torch
+
 import matplotlib.pyplot as plt
 
 from omegaconf import DictConfig
@@ -377,3 +380,81 @@ def visualize_prediction(
     )
     axs[1].set_title("Absolute Residuals")
     plt.show()
+
+def evaluate_regression(model, X, Y, params=["mse", "mae", "r2"]):
+    model.eval()
+    batch_size = 100
+    predicted = []
+
+    with torch.no_grad():
+        for i in range(len(X) // batch_size):
+            s = i * batch_size
+            e = s + batch_size
+            inputs = torch.from_numpy(X[s:e]).float().cuda(0)
+            outputs = model(inputs)
+            predicted.append(outputs.cpu().numpy())
+
+        if len(X) % batch_size != 0:
+            inputs = torch.from_numpy(X[-(len(X) % batch_size):]).float().cuda(0)
+            outputs = model(inputs)
+            predicted.append(outputs.cpu().numpy())
+
+    predicted = np.concatenate(predicted, axis=0).reshape(-1)
+    Y = Y.reshape(-1)
+
+    results = []
+    for param in params:
+        if param == "mse":
+            results.append(mean_squared_error(Y, predicted))
+        elif param == "rmse":
+            results.append(np.sqrt(mean_squared_error(Y, predicted)))
+        elif param == "mae":
+            results.append(mean_absolute_error(Y, predicted))
+        elif param == "r2":
+            results.append(r2_score(Y, predicted))
+
+    for i in range(len(params)):
+        print(params[i], "=", f"{results[i]:.4f}")
+    return results
+
+def train_model(model, criterion, train_loader, optimizer, epochs=200):
+    """
+    A general function for training a model
+
+    Parameters:
+    model: The model to be trained
+    criterion: The loss function
+    train_loader: The training data loader
+    optimizer: The optimizer
+    device: The training device, default is 'cpu'
+    epochs: The number of training epochs, default is 200
+
+    Returns:
+    model: The trained model
+    train_loss_list: A list of loss values for each training epoch
+    """
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.to(device)
+    train_loss_list = []
+    
+    for epoch in range(epochs):
+        model.train()
+        epoch_loss = 0
+        
+        for x_batch, y_batch in train_loader:
+            x_batch = x_batch.to(device)
+            y_batch = y_batch.to(device)
+
+            optimizer.zero_grad()
+            output = model(x_batch)
+            loss = criterion(output, y_batch)
+            loss.backward()
+            optimizer.step()
+
+            epoch_loss += loss.item()
+        
+        epoch_loss /= len(train_loader)
+        train_loss_list.append(epoch_loss)
+        # print(f'Epoch [{epoch+1}/{epochs}], Loss: {epoch_loss:.4f}')
+    
+    return model, train_loss_list

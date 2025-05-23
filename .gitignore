@@ -1,0 +1,20 @@
+# Ignore trash
+trash/*
+
+# Ignore Python compiled files
+__pycache__/
+
+# Ignore .mp4 files
+*.mp4
+*/*.mp4
+
+# Ignore large data folder
+data/
+*/data*
+
+# Ignore results
+*/*results*/
+
+# Ignore test and expeiment files
+*/*test*
+*/ex*
